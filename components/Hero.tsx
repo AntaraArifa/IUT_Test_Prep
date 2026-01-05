@@ -16,14 +16,14 @@ export default function Hero() {
               Join thousands of students who trust IUT MockHub.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/mock-test">
+              <Link href="/auth/sign-up">
                 <button className="px-4 py-2 bg-[#003333] text-white border-2 border-white rounded-md font-medium transition-all hover:bg-white hover:text-[#003333] w-full sm:w-auto">
                   Start Learning
                 </button>
               </Link>
-              <Link href="/#how">
+              <Link href="/#see-it-in-action">
                 <Button variant="secondary" className="w-full sm:w-auto !px-4 !py-2">
-                  See How it Works
+                  See It in Action
                 </Button>
               </Link>
             </div>
