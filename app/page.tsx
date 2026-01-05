@@ -1,8 +1,56 @@
+'use client';
+
+import { useState } from 'react';
 import Hero from '@/components/Hero';
 import Card from '@/components/Card';
 import HowItWorksStep from '@/components/HowItWorksStep';
+import Tab from '@/components/Tab';
+import QuestionCard from '@/components/QuestionCard';
+import Timer from '@/components/Timer';
+import { mockQuestions } from '@/lib/mockData';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<{ [key: string]: string }>({});
+  const [isTestSubmitted, setIsTestSubmitted] = useState(false);
+  const [isTestStarted, setIsTestStarted] = useState(false);
+
+  const handleSelectAnswer = (optionId: string) => {
+    setUserAnswers({
+      ...userAnswers,
+      [mockQuestions[currentQuestion].id]: optionId,
+    });
+  };
+
+  const handleNext = () => {
+    if (currentQuestion < mockQuestions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+    }
+  };
+
+  const handleSubmit = () => {
+    setIsTestSubmitted(true);
+    setCurrentQuestion(0); // Reset to first question for review
+    setActiveTab(1); // Switch to Review Mode
+  };
+
+  const handleStartTest = () => {
+    setIsTestStarted(true);
+  };
+
+  const handleClearResponse = () => {
+    const newAnswers = { ...userAnswers };
+    delete newAnswers[mockQuestions[currentQuestion].id];
+    setUserAnswers(newAnswers);
+  };
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -58,8 +106,171 @@ export default function Home() {
         </div>
       </section>
 
+      {/* See It In Action Section */}
+      <section id="see-it-in-action" className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#004B49] mb-4">
+              See It In Action
+            </h2>
+            <p className="text-lg text-gray-600">
+              Experience the platform before you sign up
+            </p>
+          </div>
+
+          {/* Tabs */}
+          <Tab
+            tabs={['Live Test Interface', 'Review Mode']}
+            activeTab={activeTab}
+            onTabChange={(index) => {
+              // Only allow switching to Review Mode if test is submitted
+              if (index === 1 && !isTestSubmitted) {
+                return;
+              }
+              setActiveTab(index);
+              if (index === 0) {
+                // Reset test when going back to Live Test
+                setIsTestSubmitted(false);
+                setIsTestStarted(false);
+                setCurrentQuestion(0);
+                setUserAnswers({});
+              }
+            }}
+          />
+
+          {/* Live Test Interface */}
+          {activeTab === 0 && (
+            <div>
+              {/* Test Header with Start Button */}
+              {!isTestStarted ? (
+                <div className="border-2 border-[#004B49] rounded-2xl p-8 text-center">
+                  <h3 className="text-2xl font-bold text-[#004B49] mb-4">
+                    Mock Test - Physics
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    5 questions • 3 minutes • Click below to begin
+                  </p>
+                  <button
+                    onClick={handleStartTest}
+                    className="px-8 py-3 bg-[#004B49] text-white rounded-md hover:bg-[#003333] transition-colors font-medium text-lg"
+                  >
+                    Start Test
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {/* Timer and Test Info */}
+                  <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+                    <p className="text-sm text-gray-700">Mock Test - Physics</p>
+                    <Timer initialTime={180} isRunning={isTestStarted && !isTestSubmitted} onTimeUp={handleSubmit} />
+                  </div>
+
+                  {/* Question Card */}
+                  <div className="border-2 border-[#004B49] rounded-2xl p-2 sm:p-4">
+                    <QuestionCard
+                      questionNumber={currentQuestion + 1}
+                      totalQuestions={mockQuestions.length}
+                      questionText={mockQuestions[currentQuestion].questionText}
+                      options={mockQuestions[currentQuestion].options}
+                      selectedAnswer={userAnswers[mockQuestions[currentQuestion].id]}
+                      onSelectAnswer={handleSelectAnswer}
+                    />
+
+                    {/* Navigation Buttons */}
+                    <div className="mt-6 flex flex-wrap gap-4 justify-between items-center px-4">
+                      <button
+                        onClick={handleClearResponse}
+                        className="px-6 py-2 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors font-medium"
+                      >
+                        Clear Response
+                      </button>
+
+                      <div className="flex gap-4">
+                        <button
+                          onClick={handlePrevious}
+                          disabled={currentQuestion === 0}
+                          className="px-6 py-2 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Previous
+                        </button>
+                        {currentQuestion === mockQuestions.length - 1 ? (
+                          <button
+                            onClick={handleSubmit}
+                            className="px-6 py-2 bg-[#004B49] text-white rounded-md hover:bg-[#003333] transition-colors font-medium"
+                          >
+                            Save & Next
+                          </button>
+                        ) : (
+                          <button
+                            onClick={handleNext}
+                            className="px-6 py-2 bg-[#004B49] text-white rounded-md hover:bg-[#003333] transition-colors font-medium"
+                          >
+                            Save & Next
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* Review Mode */}
+          {activeTab === 1 && isTestSubmitted && (
+            <div>
+              {/* Review Mode Label */}
+              <p className="text-sm text-gray-700 mb-6">Review Mode</p>
+
+              {/* Question Card */}
+              <div className="border-2 border-[#004B49] rounded-2xl p-2 sm:p-4">
+                <QuestionCard
+                  questionNumber={currentQuestion + 1}
+                  totalQuestions={mockQuestions.length}
+                  questionText={mockQuestions[currentQuestion].questionText}
+                  options={mockQuestions[currentQuestion].options}
+                  selectedAnswer={userAnswers[mockQuestions[currentQuestion].id]}
+                  correctAnswer={mockQuestions[currentQuestion].correctAnswer}
+                  explanation={mockQuestions[currentQuestion].explanation}
+                  isReviewMode={true}
+                />
+
+                {/* Navigation Buttons */}
+                <div className="mt-6 flex justify-end gap-4 px-4">
+                  <button
+                    onClick={handlePrevious}
+                    disabled={currentQuestion === 0}
+                    className="px-6 py-2 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Previous
+                  </button>
+                  {currentQuestion === mockQuestions.length - 1 ? (
+                    <button
+                      onClick={() => {
+                        // Reset and go back to start
+                        setCurrentQuestion(0);
+                      }}
+                      className="px-6 py-2 bg-[#004B49] text-white rounded-md hover:bg-[#003333] transition-colors font-medium"
+                    >
+                      Finish Review
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleNext}
+                      className="px-6 py-2 bg-[#004B49] text-white rounded-md hover:bg-[#003333] transition-colors font-medium"
+                    >
+                      Next
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* How It Works Section */}
-      <section id="how" className="py-20 bg-white">
+      <section id="how" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-[#004B49] mb-4">
