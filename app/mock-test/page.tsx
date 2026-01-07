@@ -4,7 +4,7 @@ import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import AuthModal from '@/components/AuthModal';
 import MockTestCard from '@/components/MockTestCard';
 import TabSwitch from '@/components/TabSwitch';
-import EmptyState from '@/components/EmptyState';
+import EmptyState from '@/components/EmptyState.jsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { mockTests } from '@/lib/mockTestCardData';
