@@ -3,16 +3,19 @@
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import AuthModal from '@/components/AuthModal';
 import MockTestCard from '@/components/MockTestCard';
+import PracticeTestCard from '@/components/PracticeTestCard';
 import TabSwitch from '@/components/TabSwitch';
-import EmptyState from '@/components/EmptyState';
+import SubjectFilter from '@/components/SubjectFilter';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { mockTests } from '@/lib/mockTestCardData';
+import { practiceTests, subjectOptions } from '@/lib/practiceTestData';
 
 export default function MockTestPage() {
   const { showAuthModal, closeModal, isAuthenticated } = useProtectedRoute();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'previous' | 'practice'>('previous');
+  const [selectedSubject, setSelectedSubject] = useState('All Subjects');
 
   useEffect(() => {
     if (showAuthModal && !isAuthenticated) {
@@ -26,10 +29,20 @@ export default function MockTestPage() {
   };
 
   const handleStartTest = (testId: string) => {
-    // Navigate to test page (to be implemented)
+    // Navigate to test page
     console.log('Starting test:', testId);
-    // router.push(`/mock-test/${testId}`);
+    router.push(`/exam/${testId}`);
   };
+
+  // Filter practice tests based on selected subject
+  const filteredPracticeTests = useMemo(() => {
+    if (selectedSubject === 'All Subjects') {
+      return practiceTests;
+    }
+    return practiceTests.filter(
+      (test) => test.primarySubject === selectedSubject || test.primarySubject === 'All'
+    );
+  }, [selectedSubject]);
 
   if (!isAuthenticated) {
     return (
@@ -60,7 +73,7 @@ export default function MockTestPage() {
         {/* Tabs Section */}
         <TabSwitch activeTab={activeTab} onTabChange={setActiveTab} />
 
-        {/* Mock Test Cards Grid */}
+        {/* Content based on active tab */}
         {activeTab === 'previous' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {mockTests.map((test) => (
@@ -72,7 +85,33 @@ export default function MockTestPage() {
             ))}
           </div>
         ) : (
-          <EmptyState />
+          <>
+            {/* Subject Filter for Practice Tests */}
+            <SubjectFilter
+              selectedSubject={selectedSubject}
+              onSubjectChange={setSelectedSubject}
+              subjects={subjectOptions}
+            />
+
+            {/* Practice Test Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {filteredPracticeTests.map((test) => (
+                <PracticeTestCard
+                  key={test.id}
+                  test={test}
+                  onStartTest={handleStartTest}
+                />
+              ))}
+            </div>
+
+            {filteredPracticeTests.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-gray-600">
+                  No practice tests available for the selected subject.
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
