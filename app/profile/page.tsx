@@ -58,7 +58,7 @@ export default function ProfilePage() {
       };
       reader.readAsDataURL(file);
     } else {
-      alert('File size must be less than 2MB');
+      alert('File size must be less than 10MB');
     }
   };
 
