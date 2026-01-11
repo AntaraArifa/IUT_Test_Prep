@@ -20,11 +20,11 @@ export default function ProfileForm({
 }: ProfileFormProps) {
   return (
     <div className="space-y-6">
-      {/* Full Name and Email - Side by Side */}
+      {/* Username and Email - Side by Side */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Full Name <span className="text-red-500">*</span>
+            Username <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
