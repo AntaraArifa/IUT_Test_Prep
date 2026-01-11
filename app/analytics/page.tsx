@@ -1,9 +1,15 @@
 'use client';
 
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
-import AuthModal from '@/components/AuthModal';
+import AuthModal from '@/components/auth/AuthModal';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import ReadinessScore from '@/components/analytics/ReadinessScore';
+import QuickStats from '@/components/analytics/QuickStats';
+import ProficiencyList from '@/components/analytics/ProficiencyList';
+import AICoachInsights from '@/components/analytics/AICoachInsights';
+import ExamHistory from '@/components/analytics/ExamHistory';
+import { dummyAnalyticsData } from '@/lib/analyticsData';
 
 export default function AnalyticsPage() {
   const { showAuthModal, closeModal, isAuthenticated } = useProtectedRoute();
@@ -35,13 +41,37 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h1 className="text-4xl font-bold text-[#004B49] mb-8">Analytics</h1>
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <p className="text-gray-600">
-            Analytics dashboard will be implemented here.
-          </p>
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Top Section: Readiness Score + Quick Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <ReadinessScore score={dummyAnalyticsData.readinessScore} />
+          <QuickStats
+            accuracy={dummyAnalyticsData.accuracy}
+            avgSpeed={dummyAnalyticsData.avgSpeed}
+          />
+        </div>
+
+        {/* Proficiency Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <ProficiencyList
+            title="Subject Proficiency"
+            items={dummyAnalyticsData.subjectProficiency}
+          />
+          <ProficiencyList
+            title="Topic Proficiency"
+            items={dummyAnalyticsData.topicProficiency}
+          />
+        </div>
+
+        {/* AI Coach Insights */}
+        <div className="mb-6">
+          <AICoachInsights insights={dummyAnalyticsData.insights} />
+        </div>
+
+        {/* Exam History */}
+        <div>
+          <ExamHistory exams={dummyAnalyticsData.examHistory} />
         </div>
       </div>
     </div>
