@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Hero from '@/components/Hero';
-import Card from '@/components/Card';
-import HowItWorksStep from '@/components/HowItWorksStep';
-import Tab from '@/components/Tab';
-import QuestionCard from '@/components/QuestionCard';
-import Timer from '@/components/Timer';
+import Hero from '@/components/landing/Hero';
+import Card from '@/components/ui/Card';
+import HowItWorksStep from '@/components/landing/HowItWorksStep';
+import Tab from '@/components/ui/Tab';
+import QuestionCard from '@/components/exam/QuestionCard';
+import Timer from '@/components/exam/Timer';
 import { mockQuestions } from '@/lib/mockData';
 
 export default function Home() {

@@ -1,6 +1,6 @@
-import Mission from '@/components/Mission';
-import MeetTheTeam from '@/components/MeetTheTeam';
-import CoreValues from '@/components/CoreValues';
+import Mission from '@/components/landing/Mission';
+import MeetTheTeam from '@/components/landing/MeetTheTeam';
+import CoreValues from '@/components/landing/CoreValues';
 
 export default function AboutPage() {
   return (

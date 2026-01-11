@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { ExamData, Question } from '@/lib/examQuestions';
-import QuestionCard from '@/components/QuestionCard';
+import QuestionCard from '@/components/exam/QuestionCard';
 
 export default function ResultsPage() {
   const params = useParams();

@@ -3,8 +3,8 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { examDatasets, ExamData } from '@/lib/examQuestions';
-import Timer from '@/components/Timer';
-import QuestionCard from '@/components/QuestionCard';
+import Timer from '@/components/exam/Timer';
+import QuestionCard from '@/components/exam/QuestionCard';
 
 export default function ExamPage() {
   const params = useParams();

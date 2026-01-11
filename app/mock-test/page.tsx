@@ -1,11 +1,11 @@
 'use client';
 
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
-import AuthModal from '@/components/AuthModal';
-import MockTestCard from '@/components/MockTestCard';
-import PracticeTestCard from '@/components/PracticeTestCard';
-import TabSwitch from '@/components/TabSwitch';
-import SubjectFilter from '@/components/SubjectFilter';
+import AuthModal from '@/components/auth/AuthModal';
+import MockTestCard from '@/components/test-cards/MockTestCard';
+import PracticeTestCard from '@/components/test-cards/PracticeTestCard';
+import TabSwitch from '@/components/ui/TabSwitch';
+import SubjectFilter from '@/components/ui/SubjectFilter';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
 import { mockTests } from '@/lib/mockTestCardData';
