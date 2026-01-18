@@ -103,7 +103,7 @@ export default function ExamPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#004B49] mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading test...</p>
+          <p className="text-black">Loading test...</p>
         </div>
       </div>
     );
@@ -114,7 +114,7 @@ export default function ExamPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-md">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Test</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <p className="text-black mb-6">{error}</p>
           <button
             onClick={() => router.push('/mock-test')}
             className="px-6 py-2 bg-[#004B49] text-white rounded-lg hover:bg-[#003333]"
@@ -134,7 +134,7 @@ export default function ExamPage() {
           <h1 className="text-xl font-bold text-[#004B49]">Mock Test</h1>
           <div className="flex items-center gap-4">
             {savingAnswer && (
-              <span className="text-sm text-gray-500 flex items-center gap-2">
+              <span className="text-sm text-black flex items-center gap-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#004B49]"></div>
                 Saving...
               </span>
@@ -193,11 +193,11 @@ export default function ExamPage() {
         {/* Submit Button */}
         <div className="mt-8 bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center justify-between">
-            <div className="text-gray-700">
+            <div className="text-black">
               <p className="font-semibold">
                 Answered: {Object.keys(selectedAnswers).length} / {questions.length}
               </p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-black mt-1">
                 Make sure you&apos;ve answered all questions before submitting
               </p>
             </div>

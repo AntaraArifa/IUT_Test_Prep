@@ -49,7 +49,7 @@ export default function ResultsPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#004B49] mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading results...</p>
+          <p className="text-black">Loading results...</p>
         </div>
       </div>
     );
@@ -60,7 +60,7 @@ export default function ResultsPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <h1 className="text-xl font-semibold text-gray-900 mb-4">Failed to Load Results</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <p className="text-black mb-6">{error}</p>
           <button
             onClick={() => router.push('/mock-test')}
             className="px-6 py-2 bg-[#004B49] text-white rounded-lg hover:bg-[#003333]"
@@ -85,11 +85,11 @@ export default function ResultsPage() {
             <h1 className="text-xl font-semibold text-gray-900 mb-2">
               Your Test Has Been Submitted Successfully!
             </h1>
-            <p className="text-gray-600 mb-4">{examName}</p>
+            <p className="text-black mb-4">{examName}</p>
             <div className="text-3xl font-semibold text-[#004B49] mb-1">
               Score: {score}/{total}
             </div>
-            <div className="text-md text-gray-600">
+            <div className="text-md text-black">
               ({percentage}%)
             </div>
           </div>
@@ -100,19 +100,19 @@ export default function ResultsPage() {
               <div className="text-2xl font-semibold text-green-600 mb-1">
                 {correctCount}
               </div>
-              <div className="text-sm text-gray-600">Correct Answers</div>
+              <div className="text-sm text-black">Correct Answers</div>
             </div>
             <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4 text-center">
               <div className="text-2xl font-semibold text-red-600 mb-1">
                 {incorrectCount}
               </div>
-              <div className="text-sm text-gray-600">Incorrect Answers</div>
+              <div className="text-sm text-black">Incorrect Answers</div>
             </div>
             <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-4 text-center">
-              <div className="text-2xl font-semibold text-gray-600 mb-1">
+              <div className="text-2xl font-semibold text-black mb-1">
                 {unansweredCount}
               </div>
-              <div className="text-sm text-gray-600">Unanswered</div>
+              <div className="text-sm text-black">Unanswered</div>
             </div>
           </div>
 
@@ -143,7 +143,7 @@ export default function ResultsPage() {
                 {/* Question Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <div className="text-sm font-semibold text-gray-700 mb-2">
+                    <div className="text-sm font-semibold text-black mb-2">
                       Question {index + 1} of {questions.length}
                       {question.subject && (
                         <span className="ml-2 text-[#004B49]">
@@ -164,7 +164,7 @@ export default function ResultsPage() {
                     </span>
                   )}
                   {question.isCorrect === null && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold whitespace-nowrap">
+                    <span className="px-3 py-1 bg-gray-100 text-black rounded-full text-sm font-semibold whitespace-nowrap">
                       - Unanswered
                     </span>
                   )}
@@ -188,10 +188,10 @@ export default function ResultsPage() {
                         key={optIdx}
                         className={`flex items-center p-3 border-2 rounded-lg ${bgColor}`}
                       >
-                        <span className="font-semibold mr-3 text-gray-700">
+                        <span className="font-semibold mr-3 text-black">
                           {String.fromCharCode(65 + optIdx)}.
                         </span>
-                        <span className={`flex-1 ${isCorrect ? 'font-semibold text-green-700' : ''}`}>
+                        <span className={`flex-1 text-black ${isCorrect ? 'font-semibold' : ''}`}>
                           {option}
                         </span>
                         {isCorrect && (
