@@ -33,7 +33,7 @@ export default function ProfileForm({
             onChange={onInputChange}
             disabled={!isEditing}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004B49] disabled:bg-gray-50 text-gray-900"
-            placeholder="Sarah Johnson"
+            placeholder="Enter your username"
           />
         </div>
         <div>
@@ -47,7 +47,7 @@ export default function ProfileForm({
             onChange={onInputChange}
             disabled={!isEditing}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004B49] disabled:bg-gray-50 text-gray-900"
-            placeholder="sarah.johnson@email.com"
+            placeholder="your.email@example.com"
           />
         </div>
       </div>
@@ -64,7 +64,7 @@ export default function ProfileForm({
           onChange={onInputChange}
           disabled={!isEditing}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004B49] disabled:bg-gray-50 text-gray-900"
-          placeholder="New York, USA"
+          placeholder="Enter your location"
         />
       </div>
 
@@ -81,7 +81,7 @@ export default function ProfileForm({
           rows={5}
           maxLength={140}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004B49] disabled:bg-gray-50 text-gray-900 resize-none"
-          placeholder="Passionate about learning new technologies and building innovative solutions. Currently focusing on full-stack development and data science."
+          placeholder="Write a short bio about yourself (max 140 characters)"
         />
         <p className="text-sm text-gray-500 mt-2">
           {profileData.bio.length}/140 characters

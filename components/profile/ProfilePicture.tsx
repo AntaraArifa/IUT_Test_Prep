@@ -16,6 +16,14 @@ export default function ProfilePicture({
 }: ProfilePictureProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // Check if profilePicture is a valid URL or data URL
+  const isValidImage = profilePicture && (
+    profilePicture.startsWith('http://') || 
+    profilePicture.startsWith('https://') || 
+    profilePicture.startsWith('data:image/') ||
+    profilePicture.startsWith('/')
+  );
+
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -44,7 +52,7 @@ export default function ProfilePicture({
       <div className="flex items-start gap-6">
         <div className="relative">
           <div className="w-32 h-32 rounded-2xl overflow-hidden bg-gray-200 flex items-center justify-center">
-            {profilePicture ? (
+            {isValidImage ? (
               <Image
                 src={profilePicture}
                 alt="Profile"
