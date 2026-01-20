@@ -84,7 +84,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('user', JSON.stringify(userData));
     }
     
-    router.push('/');
+    // Redirect admin users to admin dashboard
+    if (userData.role === 'admin') {
+      router.push('/admin');
+    } else {
+      router.push('/');
+    }
   };
 
   const signup = async (username: string, email: string, password: string) => {
