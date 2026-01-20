@@ -115,3 +115,9 @@ export interface AdminStats {
 export const fetchAdminStats = async (): Promise<AdminStats> => {
   return fetchAPI<AdminStats>('/api/admin/stats');
 };
+
+// Get total user count
+export const fetchUserCount = async (): Promise<number> => {
+  const response = await fetchAPI<{ count: number }>('/api/admin/stats/users/count');
+  return response.count;
+};

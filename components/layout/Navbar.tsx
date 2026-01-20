@@ -1,14 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { fetchUserProfile } from '@/lib/api';
 import AuthModal from '@/components/auth/AuthModal';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [profilePicture, setProfilePicture] = useState<string>('');
   const pathname = usePathname();
   const { user, logout } = useAuth();
 
@@ -33,6 +36,23 @@ export default function Navbar() {
 
   // Use admin links if on admin page, otherwise use regular links
   const currentNavLinks = isAdminPage ? adminNavLinks : navLinks;
+
+  // Load profile picture when user is logged in
+  useEffect(() => {
+    if (user) {
+      fetchUserProfile()
+        .then((profile) => {
+          if (profile.profilePicture) {
+            setProfilePicture(profile.profilePicture);
+          }
+        })
+        .catch(() => {
+          // Profile picture not available
+        });
+    } else {
+      setProfilePicture('');
+    }
+  }, [user]);
 
   const isActive = (href: string) => {
     // For admin dashboard, only match exact path
@@ -89,9 +109,21 @@ export default function Navbar() {
                 <button
                   className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white hover:bg-white hover:text-[#004B49] rounded-md transition-all"
                 >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
+                  {profilePicture ? (
+                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white">
+                      <Image
+                        src={profilePicture}
+                        alt="Profile"
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                  )}
                   <span>{user.username}</span>
                 </button>
 

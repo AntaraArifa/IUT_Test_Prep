@@ -7,6 +7,7 @@ import {
   fetchAllUsers,
   fetchContactMessages,
   fetchQuestionBanks,
+  fetchUserCount,
 } from '@/lib/api';
 
 export default function AdminDashboard() {
@@ -33,18 +34,18 @@ export default function AdminDashboard() {
         setLoading(false);
         return;
       } catch (err) {
-        console.log('Admin stats API not available, calculating manually...');
+        console.log('Admin stats API not available, fetching individual stats...');
       }
 
       // If stats API not available, fetch individual endpoints and calculate
-      const [users, messages, questionBanks] = await Promise.all([
-        fetchAllUsers().catch(() => []),
+      const [userCount, messages, questionBanks] = await Promise.all([
+        fetchUserCount().catch(() => 0),
         fetchContactMessages().catch(() => []),
         fetchQuestionBanks().catch(() => []),
       ]);
 
       setStats({
-        totalUsers: users.length,
+        totalUsers: userCount,
         totalMessages: messages.length,
         totalQuestionBanks: questionBanks.length,
         recentActivity: 'System ready',

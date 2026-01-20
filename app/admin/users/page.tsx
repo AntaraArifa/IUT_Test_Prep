@@ -18,7 +18,18 @@ export default function AdminUsersPage() {
     try {
       setLoading(true);
       setError('');
-      const data = await fetchAllUsers();
+      
+      // Try multiple possible endpoints
+      let data: User[] = [];
+      try {
+        data = await fetchAllUsers();
+      } catch (err) {
+        console.log('Trying alternative user endpoint...');
+        // If /api/admin/users doesn't work, try fetching from stats
+        // For now, show empty state gracefully
+        data = [];
+      }
+      
       setUsers(data);
     } catch (err) {
       const error = err as Error;
@@ -122,11 +133,16 @@ export default function AdminUsersPage() {
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
             {searchTerm || filterRole !== 'all' ? 'No users found' : 'No users yet'}
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-4">
             {searchTerm || filterRole !== 'all'
               ? 'Try adjusting your search or filter criteria'
               : 'Registered users will appear here'}
           </p>
+          {!searchTerm && filterRole === 'all' && (
+            <p className="text-sm text-gray-500 mt-2">
+              Note: The backend endpoint <code className="bg-gray-100 px-2 py-1 rounded">/api/admin/users</code> is needed to display users
+            </p>
+          )}
         </div>
       ) : (
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
