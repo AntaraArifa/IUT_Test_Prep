@@ -114,7 +114,7 @@ export default function AdminUsersPage() {
               className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#004B49] focus:outline-none text-black"
             >
               <option value="all">All Roles</option>
-              <option value="student">User</option>
+              <option value="student">Student</option>
               <option value="admin">Admin</option>
             </select>
           </div>
@@ -164,7 +164,7 @@ export default function AdminUsersPage() {
                     Email
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-semibold text-white">
-                    Action
+                    User Type
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-semibold text-white">
                     Joined Date
@@ -190,7 +190,7 @@ export default function AdminUsersPage() {
                         </span>
                       ) : (
                         <span className="px-3 py-1 text-black rounded-full text-xs font-semibold">
-                          User
+                          Student
                         </span>
                       )}
                     </td>

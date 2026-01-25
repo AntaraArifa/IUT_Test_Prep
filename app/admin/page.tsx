@@ -41,7 +41,7 @@ export default function AdminDashboard() {
       const [userCount, messages, questionBanks] = await Promise.all([
         fetchUserCount().catch(() => 0),
         fetchContactMessages().catch(() => []),
-        fetchQuestionBanks('prev_year').catch(() => []),
+        fetchQuestionBanks().catch(() => []), // Fetch all question banks
       ]);
 
       setStats({
