@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from 'react';
 import {
@@ -26,7 +26,7 @@ export default function AdminDashboard() {
   const loadStats = async () => {
     try {
       setLoading(true);
-      
+
       // Try to fetch from admin stats API first
       try {
         const data = await fetchAdminStats();
@@ -69,23 +69,23 @@ export default function AdminDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-[#004B49] rounded-xl shadow-lg p-6">
-          <div className="text-sm text-white/80 mb-1">Total Users</div>
-          <div className="text-3xl font-bold text-white">
+        <div className="bg-[#004B49] rounded-2xl shadow-lg p-6 border-l-7 border-[#003333]">
+          <div className="text-base font-semibold text-white mb-4">Total Users</div>
+          <div className="text-4xl font-bold text-white">
             {stats.totalUsers}
           </div>
         </div>
 
-        <div className="bg-[#004B49] rounded-xl shadow-lg p-6">
-          <div className="text-sm text-white/80 mb-1">Contact Message</div>
-          <div className="text-3xl font-bold text-white">
+        <div className="bg-[#004B49] rounded-2xl shadow-lg p-6 border-l-7 border-[#003333]">
+          <div className="text-base font-semibold text-white mb-4">Contact Message</div>
+          <div className="text-4xl font-bold text-white">
             {stats.totalMessages}
           </div>
         </div>
 
-        <div className="bg-[#004B49] rounded-xl shadow-lg p-6">
-          <div className="text-sm text-white/80 mb-1">Question Bank</div>
-          <div className="text-3xl font-bold text-white">
+        <div className="bg-[#004B49] rounded-2xl shadow-lg p-6 border-l-7 border-[#003333]">
+          <div className="text-base font-semibold text-white mb-4">Question Bank</div>
+          <div className="text-4xl font-bold text-white">
             {stats.totalQuestionBanks}
           </div>
         </div>
@@ -96,31 +96,31 @@ export default function AdminDashboard() {
         <h3 className="text-xl font-semibold text-gray-900 mb-4">
           Quick Actions
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <a
             href="/admin/contacts"
-            className="bg-white p-6 border-2 border-[#004B49] rounded-lg hover:bg-gray-50 transition-colors"
+            className="bg-white p-8 border-2 border-[#004B49] rounded-xl hover:bg-gray-50 transition-colors min-h-[160px] flex flex-col"
           >
-            <div className="font-semibold text-gray-900 mb-2">View Message</div>
-            <div className="text-sm text-black">
+            <div className="font-semibold text-gray-900 mb-3 text-xl">View Message</div>
+            <div className="text-base text-black leading-relaxed">
               Check and respond to contact form submissions from students
             </div>
           </a>
 
           <a
             href="/admin/users"
-            className="bg-white p-6 border-2 border-[#004B49] rounded-lg hover:bg-gray-50 transition-colors"
+            className="bg-white p-8 border-2 border-[#004B49] rounded-xl hover:bg-gray-50 transition-colors min-h-[160px] flex flex-col"
           >
-            <div className="font-semibold text-gray-900 mb-2">Manage Users</div>
-            <div className="text-sm text-black">View, edit, and manage all user accounts in the system</div>
+            <div className="font-semibold text-gray-900 mb-3 text-xl">Manage Users</div>
+            <div className="text-base text-black leading-relaxed">View, edit, and manage all user accounts in the system</div>
           </a>
 
           <a
             href="/admin/questions"
-            className="bg-white p-6 border-2 border-[#004B49] rounded-lg hover:bg-gray-50 transition-colors"
+            className="bg-white p-8 border-2 border-[#004B49] rounded-xl hover:bg-gray-50 transition-colors min-h-[160px] flex flex-col"
           >
-            <div className="font-semibold text-gray-900 mb-2">Upload Questions</div>
-            <div className="text-sm text-black">Import new questions via CSV files to expand question banks</div>
+            <div className="font-semibold text-gray-900 mb-3 text-xl">Upload Questions</div>
+            <div className="text-base text-black leading-relaxed">Import new questions via CSV files to expand question banks</div>
           </a>
         </div>
       </div>
