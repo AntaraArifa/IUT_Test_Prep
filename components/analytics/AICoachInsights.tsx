@@ -1,5 +1,5 @@
 interface InsightCard {
-  type: 'critical' | 'warning';
+  type: 'critical' | 'warning' | 'on-track';
   title: string;
   message: string;
 }
@@ -9,18 +9,24 @@ interface AICoachInsightsProps {
 }
 
 export default function AICoachInsights({ insights }: AICoachInsightsProps) {
-  const getCardStyle = (type: 'critical' | 'warning') => {
+  const getCardStyle = (type: 'critical' | 'warning' | 'on-track') => {
     if (type === 'critical') {
       return 'bg-red-100 border-red-200';
     }
-    return 'bg-yellow-100 border-yellow-200';
+    if (type === 'warning') {
+      return 'bg-yellow-100 border-yellow-200';
+    }
+    return 'bg-green-100 border-green-200';
   };
 
-  const getBadgeStyle = (type: 'critical' | 'warning') => {
+  const getBadgeStyle = (type: 'critical' | 'warning' | 'on-track') => {
     if (type === 'critical') {
       return 'bg-red-200 text-red-800';
     }
-    return 'bg-yellow-200 text-yellow-800';
+    if (type === 'warning') {
+      return 'bg-yellow-200 text-yellow-800';
+    }
+    return 'bg-green-200 text-green-800';
   };
 
   return (
@@ -38,7 +44,7 @@ export default function AICoachInsights({ insights }: AICoachInsightsProps) {
                   insight.type
                 )}`}
               >
-                {insight.type === 'critical' ? 'Critical' : 'Warning'}
+                {insight.type === 'critical' ? 'Critical' : insight.type === 'warning' ? 'Warning' : 'On Track'}
               </span>
             </div>
             <p className="text-gray-800 text-sm mb-3">{insight.message}</p>

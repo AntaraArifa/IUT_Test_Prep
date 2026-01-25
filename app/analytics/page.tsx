@@ -185,17 +185,18 @@ export default function AnalyticsPage() {
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
                   <p className="text-green-700 font-medium">Generating AI insights...</p>
                 </div>
-              ) : aiInsights.length > 0 ? (
-                <AICoachInsights insights={aiInsights
-                  .filter(insight => insight.tag === 'critical' || insight.tag === 'warning')
-                  .map(insight => ({
-                    type: insight.tag as 'critical' | 'warning',
-                    title: insight.tag === 'critical' ? 'Critical' : 'Warning',
-                    message: insight.message,
-                  }))} />
-              ) : (
-                <AICoachInsights insights={dummyAnalyticsData.insights} />
-              )}
+              ) : (() => {
+                // Map all AI insights to component format
+                const mappedInsights = Array.isArray(aiInsights) && aiInsights.length > 0
+                  ? aiInsights.map(insight => ({
+                      type: insight.tag,
+                      title: insight.tag === 'critical' ? 'Critical' : insight.tag === 'warning' ? 'Warning' : 'On Track',
+                      message: insight.message,
+                    }))
+                  : dummyAnalyticsData.insights;
+                
+                return <AICoachInsights insights={mappedInsights} />;
+              })()}
             </div>
 
             {/* Exam History - Real data from API */}
