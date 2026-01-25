@@ -70,17 +70,9 @@ export default function AnalyticsPage() {
     try {
       setAiInsightsLoading(true);
       
-      // Prepare data for AI (up to 5 recent tests)
-      const recentTests: TestDataForCoach[] = history.slice(0, 5).map(test => ({
-        title: test.examName,
-        score: test.score,
-        totalMarks: test.total,
-        timeTaken: test.timeTakenMinutes * 60, // Convert minutes to seconds
-        submittedAt: test.submittedAt,
-      }));
-
-      if (recentTests.length > 0) {
-        const insights = await fetchCoachInsights(recentTests);
+      // Backend fetches user's recent tests automatically
+      if (history.length > 0) {
+        const insights = await fetchCoachInsights();
         setAiInsights(insights);
       } else {
         // No test history, set empty array

@@ -49,14 +49,11 @@ export async function fetchQuestionExplanation(
 
 /**
  * Get coaching insights from recent test attempts
- * @param recentTests - Array of up to 5 recent test data
+ * Backend automatically fetches user's recent tests
  * @returns Array of 3 insights with tags and messages
  */
-export async function fetchCoachInsights(
-  recentTests: TestDataForCoach[]
-): Promise<CoachInsight[]> {
+export async function fetchCoachInsights(): Promise<CoachInsight[]> {
   return fetchAPI<CoachInsight[]>('/api/ai/coach-insight', {
-    method: 'POST',
-    body: JSON.stringify(recentTests),
+    method: 'GET',
   });
 }
