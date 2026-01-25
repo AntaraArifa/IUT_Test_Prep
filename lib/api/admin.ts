@@ -71,33 +71,6 @@ export const uploadQuestionBankCSV = async (
   return response.json();
 };
 
-// Question Banks List
-export interface QuestionBank {
-  _id: string;
-  title: string;
-  type: 'prev_year' | 'practice';
-  year?: number;
-  subjects: string[];
-  totalQuestions: number;
-  duration: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export const fetchQuestionBanks = async (
-  type?: 'prev_year' | 'practice',
-  subject?: string
-): Promise<QuestionBank[]> => {
-  const params = new URLSearchParams();
-  if (type) params.append('type', type);
-  if (subject) params.append('subject', subject);
-
-  const queryString = params.toString();
-  const endpoint = queryString ? `/api/question-banks?${queryString}` : '/api/question-banks';
-  
-  return fetchAPI<QuestionBank[]>(endpoint);
-};
-
 export const deleteQuestionBank = async (bankId: string): Promise<void> => {
   await fetchAPI<void>(`/api/admin/questions/banks/${bankId}`, {
     method: 'DELETE',
