@@ -34,8 +34,13 @@ export default function Navbar() {
     { href: '/contact', label: 'Contact', protected: false },
   ];
 
-  // Use admin links if on admin page, otherwise use regular links
-  const currentNavLinks = isAdminPage ? adminNavLinks : navLinks;
+  // Add admin link only if user is logged in and has admin role
+  const navLinksWithAdmin = user?.role === 'admin' 
+    ? [...navLinks, { href: '/admin', label: 'Admin', protected: true }]
+    : navLinks;
+
+  // Use admin links if on admin page, otherwise use regular links (with admin link if applicable)
+  const currentNavLinks = isAdminPage ? adminNavLinks : navLinksWithAdmin;
 
   // Load profile picture when user is logged in
   useEffect(() => {
