@@ -23,7 +23,7 @@ export default function AdminUsersPage() {
       let data: User[] = [];
       try {
         data = await fetchAllUsers();
-      } catch (err) {
+      } catch {
         console.log('Trying alternative user endpoint...');
         // If /api/admin/users doesn't work, try fetching from stats
         // For now, show empty state gracefully

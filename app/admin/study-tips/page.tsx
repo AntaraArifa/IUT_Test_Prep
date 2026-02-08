@@ -127,7 +127,7 @@ export default function AdminStudyTipsPage() {
               {editingTip ? 'Edit Study Tip' : 'Create New Study Tip'}
             </h2>
             <StudyTipForm
-              initialData={editingTip}
+              initialData={editingTip || undefined}
               onSubmit={editingTip ? handleUpdate : handleCreate}
               onCancel={handleCancelForm}
             />

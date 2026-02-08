@@ -69,7 +69,7 @@ export default function StudyTipsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {studyTips.map((tip, index) => (
+          {studyTips.map((tip) => (
               <StudyTipCard
                 key={tip._id}
                 title={tip.title}

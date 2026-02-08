@@ -123,7 +123,7 @@ export default function AdminFAQsPage() {
               {editingFaq ? 'Edit FAQ' : 'Create New FAQ'}
             </h2>
             <FAQForm
-              initialData={editingFaq}
+              initialData={editingFaq || undefined}
               onSubmit={editingFaq ? handleUpdate : handleCreate}
               onCancel={handleCancelForm}
             />
