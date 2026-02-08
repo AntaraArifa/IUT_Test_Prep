@@ -7,4 +7,6 @@ export * from './utils';
 export * from './admin';
 export * from './profile';
 export * from './ai';
+export * from './faqs';
+export * from './studyTips';
 export { BASE_URL } from './client';

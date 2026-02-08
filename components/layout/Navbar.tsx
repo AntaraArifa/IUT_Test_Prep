@@ -24,6 +24,8 @@ export default function Navbar() {
     { href: '/admin/contacts', label: 'Messages' },
     { href: '/admin/users', label: 'Users' },
     { href: '/admin/questions', label: 'Questions' },
+    { href: '/admin/study-tips', label: 'Study Tips' },
+    { href: '/admin/faqs', label: 'FAQs' },
   ];
 
   // Regular user navigation links

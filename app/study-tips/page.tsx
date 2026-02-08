@@ -1,16 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StudyTipCard from '@/components/study-tips/StudyTipCard';
 import StudyTipsCategoryFilter from '@/components/study-tips/StudyTipsCategoryFilter';
-import { studyTipsData, studyTipsCategories } from '@/lib/studyTipsData';
+import { fetchStudyTips, StudyTip } from '@/lib/api/studyTips';
 
 export default function StudyTipsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [studyTips, setStudyTips] = useState<StudyTip[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredTips = selectedCategory === 'all'
-    ? studyTipsData
-    : studyTipsData.filter(tip => tip.category === selectedCategory);
+  const studyTipsCategories = [
+    { id: 'all', label: 'All Tips' },
+    { id: 'preparation', label: 'Preparation' },
+    { id: 'subjects', label: 'Subject-Wise' },
+    { id: 'physics', label: 'Physics' },
+    { id: 'chemistry', label: 'Chemistry' },
+    { id: 'math', label: 'Mathematics' },
+    { id: 'time-management', label: 'Time Management' },
+    { id: 'exam-day', label: 'Exam Day' },
+    { id: 'general', label: 'General' },
+  ];
+
+  useEffect(() => {
+    const loadStudyTips = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchStudyTips(selectedCategory === 'all' ? undefined : selectedCategory);
+        setStudyTips(data);
+      } catch (error) {
+        console.error('Failed to load study tips:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadStudyTips();
+  }, [selectedCategory]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
@@ -33,16 +58,27 @@ export default function StudyTipsPage() {
         />
 
         {/* Study Tips Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredTips.map((tip, index) => (
-            <StudyTipCard
-              key={index}
-              title={tip.title}
-              description={tip.description}
-              tips={tip.tips}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004B49] border-t-transparent"></div>
+            <p className="mt-4 text-gray-600">Loading study tips...</p>
+          </div>
+        ) : studyTips.length === 0 ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow-md">
+            <p className="text-gray-500 text-lg">No study tips found in this category.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {studyTips.map((tip, index) => (
+              <StudyTipCard
+                key={tip._id}
+                title={tip.title}
+                description={tip.subtitle}
+                tips={tip.details}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Motivational Footer */}
         <div className="mt-12 bg-gradient-to-r from-[#004B49] to-[#006666] rounded-xl p-8 text-center">

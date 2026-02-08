@@ -96,7 +96,7 @@ export default function AdminDashboard() {
         <h3 className="text-xl font-semibold text-gray-900 mb-4">
           Quick Actions
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <a
             href="/admin/contacts"
             className="bg-white p-8 border-2 border-[#004B49] rounded-xl hover:bg-gray-50 transition-colors min-h-[160px] flex flex-col"
@@ -121,6 +121,22 @@ export default function AdminDashboard() {
           >
             <div className="font-semibold text-gray-900 mb-3 text-xl">Upload Questions</div>
             <div className="text-base text-black leading-relaxed">Import new questions via CSV files to expand question banks</div>
+          </a>
+
+          <a
+            href="/admin/study-tips"
+            className="bg-white p-8 border-2 border-[#004B49] rounded-xl hover:bg-gray-50 transition-colors min-h-[160px] flex flex-col"
+          >
+            <div className="font-semibold text-gray-900 mb-3 text-xl">Manage Study Tips</div>
+            <div className="text-base text-black leading-relaxed">Create and manage study tips displayed to students</div>
+          </a>
+
+          <a
+            href="/admin/faqs"
+            className="bg-white p-8 border-2 border-[#004B49] rounded-xl hover:bg-gray-50 transition-colors min-h-[160px] flex flex-col"
+          >
+            <div className="font-semibold text-gray-900 mb-3 text-xl">Manage FAQs</div>
+            <div className="text-base text-black leading-relaxed">Create and manage frequently asked questions for students</div>
           </a>
         </div>
       </div>
